@@ -14,7 +14,7 @@
 // bad peer filter
 bool is_bad_peer(const lt::peer_info& info)
 {
-  std::regex id_filter("-(XL|SD|XF|QD|BN|DL)(\\d+)-");
+  std::regex id_filter("-(XL|SD|XF|QD|BN|DL|TS)(\\d+)-");
   std::regex ua_filter(R"((\d+.\d+.\d+.\d+|cacao_torrent))");
   return std::regex_match(info.pid.data(), info.pid.data() + 8, id_filter) || std::regex_match(info.client, ua_filter);
 }
@@ -70,9 +70,6 @@ std::shared_ptr<lt::torrent_plugin> create_peer_action_plugin(
     filter_function filter,
     action_function action)
 {
-  // ignore private torrents
-  if (th.torrent_file() && th.torrent_file()->priv())
-    return nullptr;
 
   return std::make_shared<peer_action_plugin>(std::move(filter), std::move(action));
 }
