@@ -1,0 +1,11 @@
+qbittorrent-enhanced (4.3.9.10-0+2.1) UNRELEASED; urgency=medium
+
+  * version number update by debtransform
+
+ -- debtransform <build@opensuse.org>  Fri, 07 Jan 2022 15:05:32 +0000
+
+qbittorrent-enhanced (4.3.9.10-0) UNRELEASED; urgency=medium
+
+  * upstream changes
+
+ -- Nick Korotysh <kolchaprogrammer@list.ru>  Mon, 05 Oct 2020 22:19:23 +0300

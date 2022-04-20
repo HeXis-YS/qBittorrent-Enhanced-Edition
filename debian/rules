@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --buildsystem=cmake --without autoreconf
+
+override_dh_auto_configure:
+	dh_auto_configure --builddirectory build-nox -- -DGUI=OFF \
+		-DCMAKE_LIBRARY_ARCHITECTURE="$(DEB_HOST_MULTIARCH)"
+	dh_auto_configure --builddirectory build-gui -- \
+		-DCMAKE_LIBRARY_ARCHITECTURE="$(DEB_HOST_MULTIARCH)"
+
+override_dh_auto_build:
+	dh_auto_build --builddirectory build-nox
+	dh_auto_build --builddirectory build-gui
+
+override_dh_auto_test:
+	dh_auto_test --builddirectory build-nox
+	dh_auto_test --builddirectory build-gui
+
+override_dh_auto_install:
+	dh_auto_install --builddirectory build-nox --destdir debian/qbittorrent-enhanced-nox \
+		-- INSTALL_ROOT=$(CURDIR)/debian/qbittorrent-enhanced-nox
+	dh_auto_install --builddirectory build-gui --destdir debian/qbittorrent-enhanced \
+		-- INSTALL_ROOT=$(CURDIR)/debian/qbittorrent-enhanced
+
+override_dh_auto_clean:
+	dh_auto_clean --builddirectory build-nox
+	dh_auto_clean --builddirectory build-gui

@@ -1,0 +1,64 @@
+Source: qbittorrent-enhanced
+Section: net
+Priority: optional
+Maintainer: Nick Korotysh <kolchaprogrammer@list.ru>
+Build-Depends: debhelper-compat (= 12),
+               cmake (>= 3.16.0),
+               libtorrent-rasterbar-dev (<< 2.0),
+               libtorrent-rasterbar-dev (>= 1.2.12),
+               libboost-system-dev (>= 1.65.0),
+               libqt5svg5-dev,
+               qtbase5-dev (>= 5.11.0),
+               qttools5-dev,
+               zlib1g-dev
+Standards-Version: 4.5.0
+Vcs-Browser: https://github.com/c0re100/qBittorrent-Enhanced-Edition
+Vcs-Git: https://github.com/c0re100/qBittorrent-Enhanced-Edition.git
+Homepage: https://github.com/c0re100/qBittorrent-Enhanced-Edition
+
+Package: qbittorrent-enhanced
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libqt5sql5-sqlite
+Conflicts: qbittorrent
+Description: bittorrent client based on libtorrent-rasterbar with a Qt5 GUI
+ BitTorrent client written in C++ and based on libtorrent-rasterbar with a Qt5
+ user interface. qBittorrent is a feature rich but lightweight client that is
+ very similar to uTorrent. Its main features are:
+ .
+  * Polished uTorrent-like user interface
+  * Well integrated and extensible search engine
+  * Remote control through a Web user interface
+  * Vuze-compatible protocol encryption
+  * uTorrent-compatible Peer eXchange (PeX)
+  * DHT (trackerless) support
+  * UPnP / NAT-PMP port forwarding
+  * IPv6 compliant
+  * RSS support with advanced download filters
+  * Advanced control over torrent content and trackers
+  * IP Filtering (eMule / Peer Guardian filters)
+  * Torrents queueing and prioritizing
+  * Good localization (~25 languages supported)
+  * Unicode support
+
+Package: qbittorrent-enhanced-nox
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libqt5sql5-sqlite
+Conflicts: qbittorrent-nox
+Description: bittorrent client based on libtorrent-rasterbar (without X support)
+ BitTorrent client written in C++ and based on libtorrent-rasterbar.
+ qBittorrent-nox is a version of qBittorrent (Qt5 application) that does not
+ require X and can be controlled via a WebUI, thus is more suitable for headless
+ servers. It is a feature rich but lightweight client that is very similar to
+ rTorrent. Its main features are:
+ .
+  * Remote control through a Web user interface
+  * Vuze-compatible protocol encryption
+  * uTorrent-compatible Peer eXchange (PeX)
+  * DHT (trackerless) support
+  * UPnP / NAT-PMP port forwarding
+  * IPv6 compliant
+  * Advanced control over torrent content and trackers
+  * IP Filtering (eMule / Peer Guardian filters)
+  * Torrents queueing and prioritizing
+  * Good localization (~25 languages supported)
+  * Unicode support
