@@ -22,8 +22,9 @@ bool is_bad_peer(const lt::peer_info& info)
 // Unknown Peer filter
 bool is_unknown_peer(const lt::peer_info& info)
 {
-  QString country = Net::GeoIPManager::instance()->lookup(QHostAddress(info.ip.data()));
-  return info.client.find("Unknown") != std::string::npos && country == QLatin1String("CN");
+  //QString country = Net::GeoIPManager::instance()->lookup(QHostAddress(info.ip.data()));
+  //return info.client.find("Unknown") != std::string::npos && country == QLatin1String("CN");
+  return info.client.find("Unknown") != std::string::npos;
 }
 
 // Offline Downloader filter
