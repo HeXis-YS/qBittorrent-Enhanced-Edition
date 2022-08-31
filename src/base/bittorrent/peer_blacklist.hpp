@@ -71,8 +71,8 @@ std::shared_ptr<lt::torrent_plugin> create_peer_action_plugin(
     action_function action)
 {
   // ignore private torrents
-  if (th.torrent_file() && th.torrent_file()->priv())
-    return nullptr;
+  //if (th.torrent_file() && th.torrent_file()->priv())
+  //  return nullptr;
 
   return std::make_shared<peer_action_plugin>(std::move(filter), std::move(action));
 }
