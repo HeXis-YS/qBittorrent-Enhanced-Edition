@@ -49,7 +49,7 @@ apt install -y \
   python3-lxml \
   python3-pip
 
-# value from: https://musl.cc/ (without -cross or -native)
+# value from: https://muslcc.hexisys.workers.dev/ (without -cross or -native)
 export CROSS_HOST="${CROSS_HOST:-arm-linux-musleabi}"
 # use zlib-ng instead of zlib by default
 USE_ZLIB_NG=${USE_ZLIB_NG:-1}
@@ -87,8 +87,8 @@ export QT_VER_PREFIX="6"
 export LIBTORRENT_BRANCH="RC_2_0"
 export CROSS_ROOT="${CROSS_ROOT:-/cross_root}"
 # strip all compiled files by default
-export CFLAGS='-s'
-export CXXFLAGS='-s'
+export CFLAGS="-s -Ofast -march=${MTUNE_ARCH} -mtune=${MTUNE_ARCH} -flto -pipe"
+export CXXFLAGS="-s -Ofast -march=${MTUNE_ARCH} -mtune=${MTUNE_ARCH} -flto -pipe"
 
 TARGET_ARCH="${CROSS_HOST%%-*}"
 TARGET_HOST="${CROSS_HOST#*-}"
@@ -177,7 +177,7 @@ prepare_toolchain() {
     cached_file_ts="$(stat -c '%Y' "/usr/src/${CROSS_HOST}-cross.tgz")"
     current_ts="$(date +%s)"
     if [ "$((${current_ts} - "${cached_file_ts}"))" -gt 2592000 ]; then
-      SHA512SUMS="$(retry curl -ksSL --compressed https://musl.cc/SHA512SUMS)"
+      SHA512SUMS="$(retry curl -ksSL --compressed https://muslcc.hexisys.workers.dev/SHA512SUMS)"
       if echo "${SHA512SUMS}" | grep "${CROSS_HOST}-cross.tgz" | head -1 | sha512sum -c; then
         touch "/usr/src/${CROSS_HOST}-cross.tgz"
       else
@@ -187,7 +187,7 @@ prepare_toolchain() {
   fi
 
   if [ ! -f "/usr/src/${CROSS_HOST}-cross.tgz" ]; then
-    retry curl -kLC- -o "/usr/src/${CROSS_HOST}-cross.tgz" "https://musl.cc/${CROSS_HOST}-cross.tgz"
+    retry curl -kLC- -o "/usr/src/${CROSS_HOST}-cross.tgz" "https://muslcc.hexisys.workers.dev/${CROSS_HOST}-cross.tgz"
   fi
   tar -zxf "/usr/src/${CROSS_HOST}-cross.tgz" --transform='s|^\./||S' --strip-components=1 -C "${CROSS_ROOT}"
   # mingw does not contains posix thread support: https://github.com/meganz/mingw-std-threads
@@ -439,7 +439,7 @@ prepare_libtorrent
 build_qbittorrent
 
 # check
-"${RUNNER_CHECKER}" /tmp/qbittorrent-nox* --version 2>/dev/null
+#"${RUNNER_CHECKER}" /tmp/qbittorrent-nox* --version 2>/dev/null
 
 # archive qbittorrent
-zip -j9v "${SELF_DIR}/qbittorrent-enhanced-nox_${CROSS_HOST}_static.zip" /tmp/qbittorrent-nox*
+zip -j9v "${SELF_DIR}/qbittorrent-enhanced-nox_${CROSS_HOST}_${MTUNE_ARCH}_static.zip" /tmp/qbittorrent-nox*
