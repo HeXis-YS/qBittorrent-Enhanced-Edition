@@ -22,8 +22,7 @@ bool is_bad_peer(const lt::peer_info& info)
 // Unknown Peer filter
 bool is_unknown_peer(const lt::peer_info& info)
 {
-  QString country = Net::GeoIPManager::instance()->lookup(QHostAddress(info.ip.data()));
-  return info.client.find("Unknown") != std::string::npos && country == QLatin1String("CN");
+  return info.client.find("Unknown") != std::string::npos;
 }
 
 // Offline Downloader filter
@@ -76,10 +75,6 @@ std::shared_ptr<lt::torrent_plugin> create_peer_action_plugin(
     filter_function filter,
     action_function action)
 {
-  // ignore private torrents
-  if (th.torrent_file() && th.torrent_file()->priv())
-    return nullptr;
-
   return std::make_shared<peer_action_plugin>(std::move(filter), std::move(action));
 }
 
