@@ -145,7 +145,7 @@
     </message>
     <message>
         <source>Alternative download rate limit must be greater than 0 or disabled.</source>
-        <translation type="unfinished" />
+        <translation>Alternatiivse allalaadimise kiiruse limiit peab olema enam kui 0 või väljalülitatud.</translation>
     </message>
     <message>
         <source>Maximum active downloads must be greater than -1.</source>
@@ -621,7 +621,7 @@
     </message>
     <message>
         <source>Log</source>
-        <translation type="unfinished" />
+        <translation>Logi</translation>
     </message>
 </context>
 <context>
@@ -680,7 +680,7 @@
     </message>
     <message>
         <source>Web User Interface (Remote control)</source>
-        <translation type="unfinished" />
+        <translation>Veebi kasutajaliides (kaughaldus)</translation>
     </message>
     <message>
         <source>IP address:</source>
@@ -1165,10 +1165,6 @@
         <translation>Kui suhe jõuab</translation>
     </message>
     <message>
-        <source>When seeding time reaches</source>
-        <translation type="vanished">Kui jagamise aeg jõuab</translation>
-    </message>
-    <message>
         <source>Allow multiple connections from the same IP address:</source>
         <translation>Luba mitu ühendust samalt IP aadressilt:</translation>
     </message>
@@ -1438,7 +1434,7 @@
     </message>
     <message>
         <source>Reannounce to all trackers when IP or port changed:</source>
-        <translation type="unfinished" />
+        <translation>Koheselt teavita kõiki jälgijaid, kui IP või port on muutunud:</translation>
     </message>
     <message>
         <source>Trusted proxies list:</source>
@@ -1589,10 +1585,6 @@ Use ';' to split multiple entries. Can use wildcard '*'.</source>
         <translation type="unfinished" />
     </message>
     <message>
-        <source>Use proxy for hostname lookup</source>
-        <translation type="vanished">Kasuta proksit, hostinimede otsinguga</translation>
-    </message>
-    <message>
         <source>Metadata received</source>
         <translation>Metaandmed saabunud</translation>
     </message>
@@ -1630,7 +1622,7 @@ Use ';' to split multiple entries. Can use wildcard '*'.</source>
     </message>
     <message>
         <source>Log file</source>
-        <translation type="unfinished" />
+        <translation>Logi fail</translation>
     </message>
     <message>
         <source>Behavior</source>
@@ -1642,7 +1634,7 @@ Use ';' to split multiple entries. Can use wildcard '*'.</source>
     </message>
     <message>
         <source>Use proxy for BitTorrent purposes</source>
-        <translation type="unfinished" />
+        <translation>Kasuta proksit BitTorrenti jaoks</translation>
     </message>
     <message>
         <source>years</source>
@@ -1662,11 +1654,11 @@ Use ';' to split multiple entries. Can use wildcard '*'.</source>
     </message>
     <message>
         <source>Use proxy for general purposes</source>
-        <translation type="unfinished" />
+        <translation>Kasuta proksit tavatoimingute jaoks</translation>
     </message>
     <message>
         <source>Use proxy for RSS purposes</source>
-        <translation type="unfinished" />
+        <translation>Kasuta proksit RSS jaoks</translation>
     </message>
     <message>
         <source>Disk cache expiry interval (requires libtorrent &amp;lt; 2.0):</source>
@@ -1737,23 +1729,51 @@ Use ';' to split multiple entries. Can use wildcard '*'.</source>
         <translation type="unfinished" />
     </message>
     <message>
-        <source>.torrent file size limit:</source>
-        <translation type="unfinished" />
+        <source>(None)</source>
+        <translation>(Puudub)</translation>
     </message>
     <message>
         <source>Bdecode depth limit:</source>
         <translation type="unfinished" />
     </message>
     <message>
-        <source>(None)</source>
-        <translation type="unfinished" />
-    </message>
-    <message>
-        <source>Perform hostname lookup via proxy</source>
+        <source>.torrent file size limit:</source>
         <translation type="unfinished" />
     </message>
     <message>
         <source>When total seeding time reaches</source>
+        <translation type="unfinished" />
+    </message>
+    <message>
+        <source>Perform hostname lookup via proxy</source>
+        <translation>Tee hostinimede otsing proksi abiga</translation>
+    </message>
+    <message>
+        <source>Mixed mode</source>
+        <translation type="unfinished" />
+    </message>
+    <message>
+        <source>If &amp;quot;mixed mode&amp;quot; is enabled, I2P torrents are allowed to also get peers from other sources than the tracker, and connect to regular IPs, not providing any anonymization. This may be useful if the user is not interested in the anonymization of I2P, but still wants to be able to connect to I2P peers.</source>
+        <translation type="unfinished" />
+    </message>
+    <message>
+        <source>I2P inbound quantity (requires libtorrent &amp;gt;= 2.0):</source>
+        <translation type="unfinished" />
+    </message>
+    <message>
+        <source>I2P (Experimental) (requires libtorrent &amp;gt;= 2.0)</source>
+        <translation type="unfinished" />
+    </message>
+    <message>
+        <source>I2P outbound quantity (requires libtorrent &amp;gt;= 2.0):</source>
+        <translation type="unfinished" />
+    </message>
+    <message>
+        <source>I2P outbound length (requires libtorrent &amp;gt;= 2.0):</source>
+        <translation type="unfinished" />
+    </message>
+    <message>
+        <source>I2P inbound length (requires libtorrent &amp;gt;= 2.0):</source>
         <translation type="unfinished" />
     </message>
 </context>
@@ -2066,11 +2086,11 @@ Use ';' to split multiple entries. Can use wildcard '*'.</source>
     </message>
     <message>
         <source>Filename</source>
-        <translation type="unfinished" />
+        <translation>Failinimi</translation>
     </message>
     <message>
         <source>Filename + Extension</source>
-        <translation type="unfinished" />
+        <translation>Failinimi + faililaiend</translation>
     </message>
     <message>
         <source>Enumerate Files</source>
@@ -2078,7 +2098,7 @@ Use ';' to split multiple entries. Can use wildcard '*'.</source>
     </message>
     <message>
         <source>Rename failed: file or folder already exists</source>
-        <translation type="unfinished" />
+        <translation>Ümbernimetamine nurjus: fail või kaust on juba olemas</translation>
     </message>
     <message>
         <source>Toggle Selection</source>
@@ -2090,7 +2110,7 @@ Use ';' to split multiple entries. Can use wildcard '*'.</source>
     </message>
     <message>
         <source>Replace</source>
-        <translation type="unfinished" />
+        <translation>Asenda</translation>
     </message>
     <message>
         <source>Extension</source>
@@ -2102,15 +2122,15 @@ Use ';' to split multiple entries. Can use wildcard '*'.</source>
     </message>
     <message>
         <source>Include files</source>
-        <translation type="unfinished" />
+        <translation>Kaasa failid</translation>
     </message>
     <message>
         <source>Include folders</source>
-        <translation type="unfinished" />
+        <translation>Kaasa kaustad</translation>
     </message>
     <message>
         <source>Search Files</source>
-        <translation type="unfinished" />
+        <translation>Otsi faile</translation>
     </message>
     <message>
         <source>Case sensitive</source>
@@ -2903,7 +2923,7 @@ Use ';' to split multiple entries. Can use wildcard '*'.</source>
     </message>
     <message>
         <source>Rename Files...</source>
-        <translation type="unfinished" />
+        <translation>Ümbernimeta failid...</translation>
     </message>
     <message>
         <source>Renaming</source>
@@ -2933,15 +2953,11 @@ Use ';' to split multiple entries. Can use wildcard '*'.</source>
         <translation>suhe</translation>
     </message>
     <message>
-        <source>minutes</source>
-        <translation type="vanished">minutit</translation>
-    </message>
-    <message>
-        <source>inactive minutes</source>
+        <source>total minutes</source>
         <translation type="unfinished" />
     </message>
     <message>
-        <source>total minutes</source>
+        <source>inactive minutes</source>
         <translation type="unfinished" />
     </message>
 </context>
@@ -3460,10 +3476,6 @@ Use ';' to split multiple entries. Can use wildcard '*'.</source>
         <source>New name:</source>
         <translation>Uus nimi:</translation>
     </message>
-    <message>
-        <source>Renaming)</source>
-        <translation type="unfinished" />
-    </message>
 </context>
 <context>
     <name>RSSWidget</name>
@@ -3810,7 +3822,7 @@ Toetab formaate: S01E01, 1x1, 2017.12.31 ja 31.12.2017 (kuupäevade formaate toe
     </message>
     <message>
         <source>Add Tags:</source>
-        <translation type="unfinished" />
+        <translation>Lisa sildid:</translation>
     </message>
 </context>
 <context>
@@ -3855,7 +3867,7 @@ Toetab formaate: S01E01, 1x1, 2017.12.31 ja 31.12.2017 (kuupäevade formaate toe
     </message>
     <message>
         <source>Blocked</source>
-        <translation type="unfinished" />
+        <translation>Blokeeritud</translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -3879,7 +3891,7 @@ Toetab formaate: S01E01, 1x1, 2017.12.31 ja 31.12.2017 (kuupäevade formaate toe
     </message>
     <message>
         <source>ID</source>
-        <translation type="unfinished" />
+        <translation>ID</translation>
     </message>
     <message>
         <source>Log Type</source>
@@ -3919,11 +3931,11 @@ Toetab formaate: S01E01, 1x1, 2017.12.31 ja 31.12.2017 (kuupäevade formaate toe
     </message>
     <message>
         <source>Timestamp</source>
-        <translation type="unfinished" />
+        <translation>Ajatempel</translation>
     </message>
     <message>
         <source>Clear All</source>
-        <translation type="unfinished" />
+        <translation>Tühjenda kõik</translation>
     </message>
     <message>
         <source>Message</source>
@@ -3955,7 +3967,7 @@ Toetab formaate: S01E01, 1x1, 2017.12.31 ja 31.12.2017 (kuupäevade formaate toe
     </message>
     <message>
         <source>Critical</source>
-        <translation type="unfinished" />
+        <translation>Kriitilised</translation>
     </message>
     <message>
         <source>Critical Messages</source>

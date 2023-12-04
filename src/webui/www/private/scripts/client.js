@@ -453,7 +453,7 @@ window.addEvent('load', function() {
         const categoryList = $('categoryFilterList');
         if (!categoryList)
             return;
-        categoryList.empty();
+        categoryList.getChildren().each(c => c.destroy());
 
         const create_link = function(hash, text, count) {
             let display_name = text;
@@ -488,7 +488,21 @@ window.addEvent('load', function() {
         Object.each(category_list, function(category) {
             sortedCategories.push(category.name);
         });
-        sortedCategories.sort();
+        sortedCategories.sort(function(category1, category2) {
+            for (let i = 0; i < Math.min(category1.length, category2.length); ++i) {
+                if (category1[i] === "/" && category2[i] !== "/") {
+                    return -1;
+                }
+                else if (category1[i] !== "/" && category2[i] === "/") {
+                    return 1;
+                }
+                else if (category1[i] !== category2[i]) {
+                    return category1[i].localeCompare(category2[i]);
+                }
+            }
+
+            return category1.length - category2.length;
+        });
 
         for (let i = 0; i < sortedCategories.length; ++i) {
             const categoryName = sortedCategories[i];
@@ -526,8 +540,7 @@ window.addEvent('load', function() {
         if (tagFilterList === null)
             return;
 
-        while (tagFilterList.firstChild !== null)
-            tagFilterList.removeChild(tagFilterList.firstChild);
+        tagFilterList.getChildren().each(c => c.destroy());
 
         const createLink = function(hash, text, count) {
             const html = '<a href="#" onclick="setTagFilter(' + hash + ');return false;">'
@@ -580,8 +593,7 @@ window.addEvent('load', function() {
         if (trackerFilterList === null)
             return;
 
-        while (trackerFilterList.firstChild !== null)
-            trackerFilterList.removeChild(trackerFilterList.firstChild);
+        trackerFilterList.getChildren().each(c => c.destroy());
 
         const createLink = function(hash, text, count) {
             const html = '<a href="#" onclick="setTrackerFilter(' + hash + ');return false;">'

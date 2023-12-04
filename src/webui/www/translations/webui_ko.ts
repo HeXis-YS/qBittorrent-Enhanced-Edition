@@ -1165,10 +1165,6 @@
         <translation>비율에 도달했을 때</translation>
     </message>
     <message>
-        <source>When seeding time reaches</source>
-        <translation type="vanished">배포 시간 제한:</translation>
-    </message>
-    <message>
         <source>Allow multiple connections from the same IP address:</source>
         <translation>같은 IP 주소의 다중 접속 허용:</translation>
     </message>
@@ -1593,10 +1589,6 @@ DNS 재결합 공격을 방어하기 위해
         <translation>이 옵션을 선택하면, 프록시를 통해 호스트 이름 검색이 수행됩니다.</translation>
     </message>
     <message>
-        <source>Use proxy for hostname lookup</source>
-        <translation type="vanished">호스트 이름 조회에 프록시 사용</translation>
-    </message>
-    <message>
         <source>Metadata received</source>
         <translation>수신된 메타데이터</translation>
     </message>
@@ -1734,31 +1726,59 @@ DNS 재결합 공격을 방어하기 위해
     </message>
     <message>
         <source>Bdecode token limit:</source>
-        <translation type="unfinished" />
+        <translation>Bdecode 토큰 제한:</translation>
     </message>
     <message>
         <source>When inactive seeding time reaches</source>
-        <translation type="unfinished" />
-    </message>
-    <message>
-        <source>.torrent file size limit:</source>
-        <translation type="unfinished" />
-    </message>
-    <message>
-        <source>Bdecode depth limit:</source>
-        <translation type="unfinished" />
+        <translation>비활성 시딩 시간에 도달한 경우</translation>
     </message>
     <message>
         <source>(None)</source>
-        <translation type="unfinished" />
+        <translation>(없음)</translation>
     </message>
     <message>
-        <source>Perform hostname lookup via proxy</source>
-        <translation type="unfinished" />
+        <source>Bdecode depth limit:</source>
+        <translation>Bdecode 깊이 제한:</translation>
+    </message>
+    <message>
+        <source>.torrent file size limit:</source>
+        <translation>.torrent 파일 크기 제한:</translation>
     </message>
     <message>
         <source>When total seeding time reaches</source>
-        <translation type="unfinished" />
+        <translation>총 시딩 시간에 도달한 경우</translation>
+    </message>
+    <message>
+        <source>Perform hostname lookup via proxy</source>
+        <translation>프록시를 통한 호스트 이름 조회 수행</translation>
+    </message>
+    <message>
+        <source>Mixed mode</source>
+        <translation>혼합 모드</translation>
+    </message>
+    <message>
+        <source>If &amp;quot;mixed mode&amp;quot; is enabled, I2P torrents are allowed to also get peers from other sources than the tracker, and connect to regular IPs, not providing any anonymization. This may be useful if the user is not interested in the anonymization of I2P, but still wants to be able to connect to I2P peers.</source>
+        <translation>"혼합 모드"인 경우 활성화되면 I2P 토렌트는 트래커가 아닌 다른 소스에서 피어를 가져오고 익명화를 제공하지 않고 일반 IP에 연결할 수도 있습니다. 이는 사용자가 I2P의 익명화에 관심이 없지만 여전히 I2P 피어에 연결할 수 있기를 원하는 경우 유용할 수 있습니다.</translation>
+    </message>
+    <message>
+        <source>I2P inbound quantity (requires libtorrent &amp;gt;= 2.0):</source>
+        <translation>I2P 인바운드 수량 (libtorrent &amp;gt;= 2.0 필요):</translation>
+    </message>
+    <message>
+        <source>I2P (Experimental) (requires libtorrent &amp;gt;= 2.0)</source>
+        <translation>I2P (실험적) (libtorrent &amp;gt;= 2.0 필요)</translation>
+    </message>
+    <message>
+        <source>I2P outbound quantity (requires libtorrent &amp;gt;= 2.0):</source>
+        <translation>I2P 아웃바운드 수량 (libtorrent &amp;gt;= 2.0 필요):</translation>
+    </message>
+    <message>
+        <source>I2P outbound length (requires libtorrent &amp;gt;= 2.0):</source>
+        <translation>I2P 아웃바운드 길이 (libtorrent &amp;gt;= 2.0 필요):</translation>
+    </message>
+    <message>
+        <source>I2P inbound length (requires libtorrent &amp;gt;= 2.0):</source>
+        <translation>I2P 인바운드 길이 (libtorrent &amp;gt;= 2.0 필요):</translation>
     </message>
 </context>
 <context>
@@ -2085,10 +2105,6 @@ DNS 재결합 공격을 방어하기 위해
         <translation>이름 바꾸기 실패: 파일 또는 폴더가 이미 존재합니다.</translation>
     </message>
     <message>
-        <source>Match all occurences</source>
-        <translation type="vanished">모든 경우 일치</translation>
-    </message>
-    <message>
         <source>Toggle Selection</source>
         <translation>선택 항목 전환</translation>
     </message>
@@ -2126,7 +2142,7 @@ DNS 재결합 공격을 방어하기 위해
     </message>
     <message>
         <source>Match all occurrences</source>
-        <translation type="unfinished" />
+        <translation>모든 항목 일치</translation>
     </message>
 </context>
 <context>
@@ -2941,16 +2957,12 @@ DNS 재결합 공격을 방어하기 위해
         <translation>비율</translation>
     </message>
     <message>
-        <source>minutes</source>
-        <translation type="vanished">분</translation>
+        <source>total minutes</source>
+        <translation>총 시간(분)</translation>
     </message>
     <message>
         <source>inactive minutes</source>
-        <translation type="unfinished" />
-    </message>
-    <message>
-        <source>total minutes</source>
-        <translation type="unfinished" />
+        <translation>활동하지 않는 시간(분)</translation>
     </message>
 </context>
 <context>
@@ -3468,10 +3480,6 @@ DNS 재결합 공격을 방어하기 위해
         <source>New name:</source>
         <translation>새 이름:</translation>
     </message>
-    <message>
-        <source>Renaming)</source>
-        <translation>이름 바꾸는 중)</translation>
-    </message>
 </context>
 <context>
     <name>RSSWidget</name>
@@ -3818,7 +3826,7 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
     </message>
     <message>
         <source>Add Tags:</source>
-        <translation type="unfinished" />
+        <translation>태그 추가:</translation>
     </message>
 </context>
 <context>

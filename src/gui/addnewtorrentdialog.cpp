@@ -30,6 +30,7 @@
 #include "addnewtorrentdialog.h"
 
 #include <algorithm>
+#include <functional>
 
 #include <QAction>
 #include <QDateTime>
@@ -38,6 +39,7 @@
 #include <QFileDialog>
 #include <QMenu>
 #include <QPushButton>
+#include <QScreen>
 #include <QShortcut>
 #include <QString>
 #include <QUrl>
@@ -69,6 +71,7 @@ namespace
 #define SETTINGS_KEY(name) u"AddNewTorrentDialog/" name
     const QString KEY_ENABLED = SETTINGS_KEY(u"Enabled"_s);
     const QString KEY_TOPLEVEL = SETTINGS_KEY(u"TopLevel"_s);
+    const QString KEY_ATTACHED = SETTINGS_KEY(u"Attached"_s);
     const QString KEY_SAVEPATHHISTORY = SETTINGS_KEY(u"SavePathHistory"_s);
     const QString KEY_DOWNLOADPATHHISTORY = SETTINGS_KEY(u"DownloadPathHistory"_s);
     const QString KEY_SAVEPATHHISTORYLENGTH = SETTINGS_KEY(u"SavePathHistoryLength"_s);
@@ -133,6 +136,36 @@ namespace
 
         settings()->storeValue(settingsKey, QStringList(pathList.mid(0, maxLength)));
     }
+
+    void adjustDialogGeometry(QWidget *dialog, const QWidget *parentWindow)
+    {
+        // It is preferable to place the dialog in the center of the parent window.
+        // However, if it goes beyond the current screen, then move it so that it fits there
+        // (or, if the dialog is larger than the current screen, at least make sure that
+        // the upper/left coordinates of the dialog are inside it).
+
+        QRect dialogGeometry = dialog->geometry();
+
+        dialogGeometry.moveCenter(parentWindow->geometry().center());
+
+        const QRect screenGeometry = parentWindow->screen()->availableGeometry();
+
+        QPoint delta = screenGeometry.bottomRight() - dialogGeometry.bottomRight();
+        if (delta.x() > 0)
+            delta.setX(0);
+        if (delta.y() > 0)
+            delta.setY(0);
+        dialogGeometry.translate(delta);
+
+        delta = screenGeometry.topLeft() - dialogGeometry.topLeft();
+        if (delta.x() < 0)
+            delta.setX(0);
+        if (delta.y() < 0)
+            delta.setY(0);
+        dialogGeometry.translate(delta);
+
+        dialog->setGeometry(dialogGeometry);
+    }
 }
 
 class AddNewTorrentDialog::TorrentContentAdaptor final
@@ -140,10 +173,11 @@ class AddNewTorrentDialog::TorrentContentAdaptor final
 {
 public:
     TorrentContentAdaptor(BitTorrent::TorrentInfo &torrentInfo, PathList &filePaths
-                          , QVector<BitTorrent::DownloadPriority> &filePriorities)
+            , QVector<BitTorrent::DownloadPriority> &filePriorities, std::function<void ()> onFilePrioritiesChanged)
         : m_torrentInfo {torrentInfo}
         , m_filePaths {filePaths}
         , m_filePriorities {filePriorities}
+        , m_onFilePrioritiesChanged {std::move(onFilePrioritiesChanged)}
     {
         Q_ASSERT(filePaths.isEmpty() || (filePaths.size() == torrentInfo.filesCount()));
 
@@ -254,6 +288,8 @@ public:
     {
         Q_ASSERT(priorities.size() == filesCount());
         m_filePriorities = priorities;
+        if (m_onFilePrioritiesChanged)
+            m_onFilePrioritiesChanged();
     }
 
     Path actualStorageLocation() const override
@@ -274,6 +310,7 @@ private:
     BitTorrent::TorrentInfo &m_torrentInfo;
     PathList &m_filePaths;
     QVector<BitTorrent::DownloadPriority> &m_filePriorities;
+    std::function<void ()> m_onFilePrioritiesChanged;
     Path m_originalRootFolder;
     BitTorrent::TorrentContentLayout m_currentContentLayout;
 };
@@ -471,6 +508,18 @@ void AddNewTorrentDialog::setSavePathHistoryLength(const int value)
         , QStringList(settings()->loadValue<QStringList>(KEY_SAVEPATHHISTORY).mid(0, clampedValue)));
 }
 
+#ifndef Q_OS_MACOS
+void AddNewTorrentDialog::setAttached(const bool value)
+{
+    settings()->storeValue(KEY_ATTACHED, value);
+}
+
+bool AddNewTorrentDialog::isAttached()
+{
+    return settings()->loadValue(KEY_ATTACHED, false);
+}
+#endif
+
 void AddNewTorrentDialog::loadState()
 {
     if (const QSize dialogSize = m_storeDialogSize; dialogSize.isValid())
@@ -489,19 +538,24 @@ void AddNewTorrentDialog::saveState()
 
 void AddNewTorrentDialog::show(const QString &source, const BitTorrent::AddTorrentParams &inParams, QWidget *parent)
 {
-    Q_UNUSED(parent);
+    const auto *pref = Preferences::instance();
+#ifdef Q_OS_MACOS
+    const bool attached = false;
+#else
+    const bool attached = isAttached();
+#endif
 
     // By not setting a parent to the "AddNewTorrentDialog", all those dialogs
     // will be displayed on top and will not overlap with the main window.
-    auto *dlg = new AddNewTorrentDialog(inParams, nullptr);
+    auto *dlg = new AddNewTorrentDialog(inParams, (attached ? parent : nullptr));
     // Qt::Window is required to avoid showing only two dialog on top (see #12852).
     // Also improves the general convenience of adding multiple torrents.
-    dlg->setWindowFlags(Qt::Window);
+    if (!attached)
+        dlg->setWindowFlags(Qt::Window);
     dlg->setAttribute(Qt::WA_DeleteOnClose);
 
     if (Net::DownloadManager::hasSupportedScheme(source))
     {
-        const auto *pref = Preferences::instance();
         // Launch downloader
         Net::DownloadManager::instance()->download(
                 Net::DownloadRequest(source).limit(pref->getTorrentFileSizeLimit())
@@ -516,9 +570,14 @@ void AddNewTorrentDialog::show(const QString &source, const BitTorrent::AddTorre
         : dlg->loadTorrentFile(source);
 
     if (isLoaded)
+    {
+        adjustDialogGeometry(dlg, parent);
         dlg->QDialog::show();
+    }
     else
+    {
         delete dlg;
+    }
 }
 
 void AddNewTorrentDialog::show(const QString &source, QWidget *parent)
@@ -749,7 +808,7 @@ void AddNewTorrentDialog::contentLayoutChanged()
 
     const auto contentLayout = static_cast<BitTorrent::TorrentContentLayout>(m_ui->contentLayoutComboBox->currentIndex());
     m_contentAdaptor->applyContentLayout(contentLayout);
-    m_ui->contentTreeView->setContentHandler(m_contentAdaptor); // to cause reloading
+    m_ui->contentTreeView->setContentHandler(m_contentAdaptor.get()); // to cause reloading
 }
 
 void AddNewTorrentDialog::saveTorrentFile()
@@ -974,7 +1033,8 @@ void AddNewTorrentDialog::setupTreeview()
     if (m_torrentParams.filePaths.isEmpty())
         m_torrentParams.filePaths = m_torrentInfo.filePaths();
 
-    m_contentAdaptor = new TorrentContentAdaptor(m_torrentInfo, m_torrentParams.filePaths, m_torrentParams.filePriorities);
+    m_contentAdaptor = std::make_unique<TorrentContentAdaptor>(m_torrentInfo, m_torrentParams.filePaths
+            , m_torrentParams.filePriorities, [this] { updateDiskSpaceLabel(); });
 
     const auto contentLayout = static_cast<BitTorrent::TorrentContentLayout>(m_ui->contentLayoutComboBox->currentIndex());
     m_contentAdaptor->applyContentLayout(contentLayout);
@@ -995,7 +1055,7 @@ void AddNewTorrentDialog::setupTreeview()
         m_contentAdaptor->prioritizeFiles(priorities);
     }
 
-    m_ui->contentTreeView->setContentHandler(m_contentAdaptor);
+    m_ui->contentTreeView->setContentHandler(m_contentAdaptor.get());
 
     m_filterLine->blockSignals(false);
 
